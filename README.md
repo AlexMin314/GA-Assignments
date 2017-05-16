@@ -1,2 +1,2 @@
-# GA-practices
-GA practices
+# GA-Assignments
+GA Assignments
