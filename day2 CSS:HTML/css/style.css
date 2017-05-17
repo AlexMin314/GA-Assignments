@@ -44,9 +44,8 @@ h2 {
   margin: 0px;
 }
 
-p {
+p, span {
   font-size: 1.25em;
-  display: inline;
 }
 
 div {
@@ -77,6 +76,10 @@ footer {
 
 .job {
   font-weight: bold;
+}
+
+.portfolio {
+margin-left: 60px;
 }
 
 #name {
