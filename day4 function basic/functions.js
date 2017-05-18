@@ -1,11 +1,11 @@
-// 5 one-line answers
+// (7/8) one-line answers
 
-// Question 1
+// Question 1 V
 function maxOfTwoNumbers(a, b) {
   return a > b ? a : b;
 }
 
-// Question 2
+// Question 2 V
 function maxOfThree(a, b, c) {
   if (a > b) {
     return a > c ? a : c;
@@ -15,13 +15,17 @@ function maxOfThree(a, b, c) {
   }
 }
 
-// Question 3
+function maxOfThree1(a, b, c) {
+  return Math.max(a, b, c);
+}
+
+// Question 3 V
 function isCharacterAVowel(c) {
   var checker = ['a', 'e', 'i', 'o', 'u'];
   return checker.indexOf(c) > -1;
 }
 
-// Question 4
+// Question 4 V
 function sumArray(arr) {
   var i,
     leng = arr.length,
@@ -39,7 +43,7 @@ function sumArray1(arr) {
   });
 }
 
-// Question 4
+// Question 5 V
 function multiplyArray(arr) {
   var i,
     leng = arr.length,
@@ -57,7 +61,7 @@ function multiplyArray1(arr) {
   });
 }
 
-// Question 5
+// Question 6 V
 var reverseString = function(s) {
   var i,
     leng = s.length;
@@ -74,7 +78,7 @@ var reverseString1 = function(s) {
 }
 
 
-// Question 6
+// Question 7
 function findLongestWord(arr) {
   var longest = 0,
     i
@@ -87,7 +91,7 @@ function findLongestWord(arr) {
   return longest;
 }
 
-// Question 7
+// Question 8 V
 function filterLongWords(arr, i) {
   return arr.filter(function(e, index) {
     return arr[index].length > i;
