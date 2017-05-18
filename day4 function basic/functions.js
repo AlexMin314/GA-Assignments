@@ -1,3 +1,5 @@
+// 4 one-line answers
+
 // Question 1
 function maxOfTwoNumbers(a, b) {
   return a > b ? a : b;
@@ -32,10 +34,9 @@ function sumArray(arr) {
 }
 
 function sumArray1(arr) {
-  var sum1 = arr.reduce(function(a, b) {
+  return arr.reduce(function(a, b) {
     return a + b;
   });
-  return sum1;
 }
 
 // Question 4
@@ -51,10 +52,9 @@ function multiplyArray(arr) {
 }
 
 function multiplyArray1(arr) {
-  var multi1 = arr.reduce(function(a, b) {
+  return arr.reduce(function(a, b) {
     return a * b;
   });
-  return multi1;
 }
 
 // Question 5
