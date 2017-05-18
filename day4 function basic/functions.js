@@ -9,8 +9,7 @@ function maxOfTwoNumbers(a, b) {
 function maxOfThree(a, b, c) {
   if (a > b) {
     return a > c ? a : c;
-  }
-  if (b > a) {
+  } else {
     return b > c ? b : c;
   }
 }
@@ -21,9 +20,10 @@ function maxOfThree1(a, b, c) {
 
 // Question 3 ////////////
 function isCharacterAVowel(c) {
-  var checker = ['a', 'e', 'i', 'o', 'u'];
-  return checker.indexOf(c) > -1;
+  var check = ['a', 'e', 'i', 'o', 'u'];
+  return check.indexOf(c) > -1;
 }
+
 
 function isCharacterAVowel1(c) {
   return ['a', 'e', 'i', 'o', 'u'].indexOf(c) > -1;
@@ -64,7 +64,7 @@ function multiplyArray1(arr) {
 // Question 6 ////////////
 var reverseString = function(s) {
   var i,
-      leng = s.length;
+      leng = s.length,
       result = '';
 
   for (i = leng - 1; i >= 0; i--) {
@@ -81,7 +81,7 @@ var reverseString1 = function(s) {
 // Question 7
 function findLongestWord(arr) {
   var longest = 0,
-      i
+      i,
       leng = arr.length;
 
   for (i = 0; i < leng; i++) {
@@ -107,14 +107,14 @@ Object.prototype.reverseString = function() {
 // Bonus 2
 function charactersOccurencesCount(s) {
   var cache = {},
-      checker = s.split(''),
-      leng = checker.length;
+      check = s.split(''),
+      leng = check.length;
 
   for (var i = 0; i < leng; i++) {
-    if (!cache.hasOwnProperty(checker[i])) {
-      cache[checker[i]] = 1;
-    } else if (cache.hasOwnProperty(checker[i])) {
-      cache[checker[i]] += 1;
+    if (!cache.hasOwnProperty(check[i])) {
+      cache[check[i]] = 1;
+    } else if (cache.hasOwnProperty(check[i])) {
+      cache[check[i]] += 1;
     }
   }
   return cache;
