@@ -1,4 +1,4 @@
-// 4 one-line answers
+// 5 one-line answers
 
 // Question 1
 function maxOfTwoNumbers(a, b) {
