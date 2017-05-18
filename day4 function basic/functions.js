@@ -1,11 +1,11 @@
 // (7/8) one-line answers
 
-// Question 1 V
+// Question 1 ////////////
 function maxOfTwoNumbers(a, b) {
   return a > b ? a : b;
 }
 
-// Question 2 V
+// Question 2 ////////////
 function maxOfThree(a, b, c) {
   if (a > b) {
     return a > c ? a : c;
@@ -19,17 +19,21 @@ function maxOfThree1(a, b, c) {
   return Math.max(a, b, c);
 }
 
-// Question 3 V
+// Question 3 ////////////
 function isCharacterAVowel(c) {
   var checker = ['a', 'e', 'i', 'o', 'u'];
   return checker.indexOf(c) > -1;
 }
 
-// Question 4 V
+function isCharacterAVowel1(c) {
+  return ['a', 'e', 'i', 'o', 'u'].indexOf(c) > -1;
+}
+
+// Question 4 ////////////
 function sumArray(arr) {
   var i,
-    leng = arr.length,
-    sum = 0;
+      leng = arr.length,
+      sum = 0;
 
   for (i = 0; i < leng; i++) {
     sum += arr[i];
@@ -38,16 +42,14 @@ function sumArray(arr) {
 }
 
 function sumArray1(arr) {
-  return arr.reduce(function(a, b) {
-    return a + b;
-  });
+  return arr.reduce(function(a, b) { return a + b; });
 }
 
-// Question 5 V
+// Question 5 ////////////
 function multiplyArray(arr) {
   var i,
-    leng = arr.length,
-    multi = 1;
+      leng = arr.length,
+      multi = 1;
 
   for (i = 0; i < leng; i++) {
     multi *= arr[i];
@@ -56,16 +58,14 @@ function multiplyArray(arr) {
 }
 
 function multiplyArray1(arr) {
-  return arr.reduce(function(a, b) {
-    return a * b;
-  });
+  return arr.reduce(function(a, b) { return a * b; });
 }
 
-// Question 6 V
+// Question 6 ////////////
 var reverseString = function(s) {
   var i,
-    leng = s.length;
-  result = '';
+      leng = s.length;
+      result = '';
 
   for (i = leng - 1; i >= 0; i--) {
     result += s[i];
@@ -81,8 +81,9 @@ var reverseString1 = function(s) {
 // Question 7
 function findLongestWord(arr) {
   var longest = 0,
-    i
-  leng = arr.length;
+      i
+      leng = arr.length;
+
   for (i = 0; i < leng; i++) {
     if (arr[i].length > longest) {
       longest = arr[i].length;
@@ -91,11 +92,9 @@ function findLongestWord(arr) {
   return longest;
 }
 
-// Question 8 V
+// Question 8 ////////////
 function filterLongWords(arr, i) {
-  return arr.filter(function(e, index) {
-    return arr[index].length > i;
-  })
+  return arr.filter(function(e, idx) {return arr[idx].length > i; })
 }
 
 // Bonus 1
@@ -107,9 +106,9 @@ Object.prototype.reverseString = function() {
 
 // Bonus 2
 function charactersOccurencesCount(s) {
-  var cache = {}
-  checker = s.split(''),
-    leng = checker.length;
+  var cache = {},
+      checker = s.split(''),
+      leng = checker.length;
 
   for (var i = 0; i < leng; i++) {
     if (!cache.hasOwnProperty(checker[i])) {
