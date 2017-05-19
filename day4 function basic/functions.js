@@ -98,7 +98,8 @@ function findLongestWord(arr) {
 
 function findLongestWord1(arr) {
   return arr.map(function(e, i) {return arr[i]=arr[i].length;} ).sort(function(a,b) {return b-a;})[0];
-}
+} // it just find the longest length..
+
 
 // Question 8 ////////////
 function filterLongWords(arr, i) {
