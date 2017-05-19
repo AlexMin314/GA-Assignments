@@ -22,16 +22,17 @@ function maxOfThree3(a, b, c) {
   return Math.max(a, b, c);
 }
 
+
 // Question 3 ////////////
-function isCharacterAVowel(c) {
-  var check = ['a', 'e', 'i', 'o', 'u'];
-  return check.indexOf(c) > -1;
-}
-
-
 function isCharacterAVowel1(c) {
-  return ['a', 'e', 'i', 'o', 'u'].indexOf(c) > -1;
+  return ['a', 'e', 'i', 'o', 'u'].indexOf(c.toLowerCase()) > -1;
 }
+
+function isCharacterAVowel(c) {
+    return "AEIOUaeiou".indexOf(c) != -1;
+}
+
+
 
 // Question 4 ////////////
 function sumArray(arr) {
@@ -115,19 +116,32 @@ Object.prototype.reverseString = function() {
 "General Assembly".reverseString();
 
 // Bonus 2
-function charactersOccurencesCount(s) {
+function charactersOccurencesCount1(s) {
   var cache = {},
-      check = s.split(''),
+      check = s.split(/\s*/g),
       leng = check.length;
 
   for (var i = 0; i < leng; i++) {
-    if (!cache.hasOwnProperty(check[i])) {
-      cache[check[i]] = 1;
-    } else if (cache.hasOwnProperty(check[i])) {
+    if (cache.hasOwnProperty(check[i])) {
       cache[check[i]] += 1;
+    } else {
+      cache[check[i]] = 1;
     }
   }
   return cache;
+}
+
+function charactersOccurencesCount(s) {
+  var ret = {};
+  s.split("").forEach(function(el) {
+    if (el in ret) {
+      ret[el] += 1;
+    }
+    else {
+      ret[el] = 1;
+    }
+  });
+  return ret;
 }
 
 // Bonus 3
