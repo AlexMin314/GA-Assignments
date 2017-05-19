@@ -1,4 +1,4 @@
-// (7/8) one-line answers
+// (8/8) one-line answers
 
 // Question 1 ////////////
 function maxOfTwoNumbers(a, b) {
@@ -14,7 +14,11 @@ function maxOfThree(a, b, c) {
   }
 }
 
-function maxOfThree1(a, b, c) {
+function maxOfThree2(a, b, c) {
+  return a > b ? (a > c ? a : c) : (b > c ? b : c);
+}
+
+function maxOfThree3(a, b, c) {
   return Math.max(a, b, c);
 }
 
@@ -92,12 +96,17 @@ function findLongestWord(arr) {
   return longest;
 }
 
+function findLongestWord1(arr) {
+  return arr.map(function(e, i) {return arr[i]=arr[i].length;} ).sort(function(a,b) {return b-a;})[0];
+}
+
 // Question 8 ////////////
 function filterLongWords(arr, i) {
   return arr.filter(function(e, idx) {return arr[idx].length > i; })
 }
 
-// Bonus 1
+////////////////////////
+// Bonus 1//////////////
 Object.prototype.reverseString = function() {
   return this.split('').reverse().join('');
 };
