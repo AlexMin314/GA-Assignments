@@ -138,9 +138,9 @@ var Vendor = function (name) {
   }
 
   this.totalRevenue = function() {
-    return this.cars.reduce(function(a,c) {
+    return console.log('Total revenue is ' + this.cars.reduce(function(a,c) {
       return a + c.quotePrice();
-    }, 0);
+    }, 0));
   }
 
 };
@@ -151,7 +151,13 @@ var customerInfo = {
   id: "001",
   name: "Sherman"
 };
+var customerInfo1 = {
+  id: '002',
+  name: 'Alex'
+}
+
 var customerA = new Customer(customerInfo);
+var customerB = new Customer(customerInfo1);
 
 var carInfo = {
   id: "001",
@@ -159,19 +165,29 @@ var carInfo = {
   model: "Subra",
   rentalPrice: 200,
 };
+var carInfo1 = {
+  id: "002",
+  producer: "GM",
+  model: "Cruze",
+  rentalPrice: 300,
+};
+
 
 var carA = new Car(carInfo);
+var carB = new Car(carInfo1);
 
 var vendor = new Vendor('Jens Limited');
 vendor.addCustormer(customerA);
-//console.log(vendor.customers);
-//console.log(vendor.availableCars());
+vendor.addCustormer(customerB);
 
 vendor.addCar(carA);
-//console.log(vendor.availableCars());
-//console.log(vendor.cars);
-//console.log(customerA.id);
-vendor.rentCar(customerA.id, 5);
+vendor.addCar(carB);
 
-console.log(vendor.totalRevenue());
+vendor.rentCar(customerA.id, 5);
+console.log(vendor.availableCars()); // 002 left
+
+vendor.rentCar(customerA.id, 5);
+console.log(vendor.availableCars()); // empty array
+
 vendor.returnCar(customerA.id);
+vendor.totalRevenue();
