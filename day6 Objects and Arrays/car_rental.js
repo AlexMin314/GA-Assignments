@@ -15,7 +15,7 @@ var Car = function (carInfo) {
   this.customer = null;
   this.rentalDuration = 0;
   this.quotePrice = function (rentalDuration) {
-    return this.rentalPricePerDay * this.rentalDuration;
+    return this.rentalPricePerDay * rentalDuration;
   };
   this.reserve = function (customer, rentalDuration) {
     if (this.available) {
@@ -139,7 +139,7 @@ var Vendor = function (name) {
 
   this.totalRevenue = function() {
     return console.log('Total revenue is ' + this.cars.reduce(function(a,c) {
-      return a + c.quotePrice();
+      return a + (c.rentalDuration * c.rentalPricePerDay);
     }, 0));
   }
 
@@ -186,7 +186,7 @@ vendor.addCar(carB);
 vendor.rentCar(customerA.id, 5);
 console.log(vendor.availableCars()); // 002 left
 
-vendor.rentCar(customerA.id, 5);
+vendor.rentCar(customerB.id, 7);
 console.log(vendor.availableCars()); // empty array
 
 vendor.returnCar(customerA.id);
