@@ -70,10 +70,9 @@ var Vendor = function (name) {
 
   // **your code here**
   this.addCar = function(carObj) {
-    if (this.getCar(carObj)) {
+    if (this.getCar(carObj.id)) {
       console.log("ID already exists");
     } else {
-      //this.cars.push(this.getCar(carObj));
       this.cars.push(carObj);
       console.log("Car added to warehouse");
     }
@@ -117,8 +116,9 @@ var Vendor = function (name) {
     } else {
       var theCustomer = this.getCustomer(customerID);
       if(theCustomer) {
-        theCustomer.carRented = this.availableCars()[0];
-        this.availableCars()[0].reserve(theCustomer, rentalDuration);
+        var theCar = this.availableCars()[0];
+        theCustomer.carRented = theCar;
+        theCar.reserve(theCustomer, rentalDuration);
         console.log("The car has been reserved");
       } else {
         console.log("Please provide a valid customerID");
@@ -139,6 +139,7 @@ var Vendor = function (name) {
 
   this.totalRevenue = function() {
     return console.log('Total revenue is ' + this.cars.reduce(function(a,c) {
+      console.log(a,c);
       return a + (c.rentalDuration * c.rentalPricePerDay);
     }, 0));
   }
@@ -182,12 +183,15 @@ vendor.addCustormer(customerB);
 
 vendor.addCar(carA);
 vendor.addCar(carB);
+console.log(vendor.availableCars());
 
 vendor.rentCar(customerA.id, 5);
 console.log(vendor.availableCars()); // 002 left
 
 vendor.rentCar(customerB.id, 7);
 console.log(vendor.availableCars()); // empty array
+vendor.totalRevenue(); // 3100
 
 vendor.returnCar(customerA.id);
-vendor.totalRevenue();
+console.log(vendor.availableCars()); // 001 returned
+vendor.totalRevenue(); // 2100
