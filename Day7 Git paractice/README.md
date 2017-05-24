@@ -1,2 +1,1 @@
 # GA-Assignments
-GA Assignments
