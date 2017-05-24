@@ -1,0 +1,26 @@
+.headerTitle {
+  /*border-bottom: 1px solid grey;*/
+  margin-bottom: 10px;
+}
+
+.addItem {
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  padding: 10px 0px;
+  margin-top: 10px;
+}
+
+.blue {
+  background-color: rgba(173, 216, 230, 1);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.listedItem {
+  border-top: 1px solid rgba(200, 200, 200, 0.77);
+  margin-bottom: 5px;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  height:auto;
+}
