@@ -1,3 +1,2 @@
 # Tic Tac Toe Javascript
-
-[Imgur](http://i.imgur.com/gFfAiul.png)
+<a href="http://imgur.com/gFfAiul"><img src="http://i.imgur.com/gFfAiul.png" title="source: imgur.com" /></a>
