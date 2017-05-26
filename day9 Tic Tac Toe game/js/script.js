@@ -4,6 +4,7 @@
   var winchk = false;
   var winPlayer;
   var playerTurnText = document.getElementById("playerTurnText");
+  var temp;
 
   // Winning combination
   var winStr = '012|345|678|036|147|258|048|246';
@@ -17,10 +18,9 @@
     setTimeout(function () {
       gameOver();
       if (turn === 9) {
-        if (confirm('Draw! want more game?')) { resetBoard(); }
-        else { endGame(); }
+        (confirm('Draw! want more game?') ? resetBoard() : endGame());
       }
-    }, 0);
+    }, 2000);
   }
 
   // Putting O or X on the board
@@ -57,17 +57,13 @@
     if (winchk === true) {
       winchk = false;
       alert('GameOver! Player' + winPlayer + ' wins!');
-      if (confirm("Want more games?")) {
-        resetBoard(); // YES : resetBoard
-      } else {
-        endGame(); // NO: remove the click event
-      }
+      (confirm("Want more games?") ? resetBoard() : endGame());
+      // YES : resetBoard // NO: remove the click event
     }
   };
 
   // Reset board
   var resetBoard = function () {
-    var temp;
     winStr = '012|345|678|036|147|258|048|246'; // reset winning seed
     turn = 0; // reset turn number
     for (var i = 0; i < 9; i++) {
@@ -77,14 +73,16 @@
       temp.style.borderRadius = '0px';
       temp.className = '';
     }
+    playerTurnText.innerHTML = "It is Player1(O)'s turn"
   };
 
   // Delete Click Event.
   var endGame = function () {
+    turn = 0;
     return document.getElementById('wrapper').removeEventListener('click', game, true);
   };
 
-  // Event listening to the wrapper of all cells
+  // Event Delegation
   document.getElementById('wrapper').addEventListener('click', game, true);
 
   // Event listening to the reset button
