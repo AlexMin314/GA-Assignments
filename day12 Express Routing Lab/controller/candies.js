@@ -12,7 +12,7 @@ module.exports = function (app) {
     res.json(candies);
   })
 
-  // show
+  // Show
   app.get('/candies/:id', (req, res) => {
     const id = req.params.id;
     let candyInfo = candies.filter((candy) => {
@@ -23,23 +23,23 @@ module.exports = function (app) {
 
   // Create
   app.post('/candies', (req, res) => {
-    let name = req.body; // req.body = body of content
-    candies.push(name)
+    candies.push(req.body) // req.body = body of content
     res.json(req.body);
   })
 
   // Update
   app.put('/candies/:id', (req, res) => {
     const id = req.params.id;
-    candies[id-1] = req.body;
+    candies[id - 1] = req.body;
+    res.json(req.body);
   })
 
-  // destory
+  // Delete
   app.delete('/candies/:id', (req, res) => {
     const id = req.params.id;
     let candyInfo = candies.filter((candy) => {
       return candy.id != id;
     });
-    res.json({"message":"deleted"});
+    res.json({ "message": "deleted" });
   });
 }
