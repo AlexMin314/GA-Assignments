@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  // header
+  header.container
+    .row
+      .headerTitle.col-xs-12
+        h1 Shopping Cart
+  main
+    // Shopping List
+    section#itemList.container
+      // Added Items sit here
+      
+    // Shopping List Ends
+    
+    // Item Adding Section
+    section#addItem.container
+      .row.createItem.col-xs-12
+        .addItemName.col-xs-4
+          input#addItemNameValue.form-control(type='text', name='name', placeholder='Item Name')
+        .addItemPrice.col-xs-3
+          .input-group
+            span.input-group-addon $
+            input#addItemPriceValue.form-control(type='number', min='0', placeholder='Price')
+        .createItem.col-xs-3
+          button#createItemBtn.btn.btn-primary(type='button') Create
+      .row.calculate.col-xs-3.col-xs-offset-9
+        button#calButton.btn.btn-success(type='button', name='button') Update Cart
+    // Item Adding ends
+    
+    // Total Sum Section
+    section.container.totalSum
+      .col-xs-12
+        h1.totalPriceLabel Total Price:
+        h1#totalSum $0.00
+    // Total Sum ends
+    
+    
+block scripts
+  script(src='./javascripts/main.js')

@@ -1,0 +1,48 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+/* Header */
+.headerTitle {
+  margin-bottom: 10px;
+}
+
+/* item list*/
+#addItem {
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  padding: 10px 0px;
+  margin-top: 10px;
+}
+
+/* item */
+.listedItem {
+  border-top: 1px solid lightgray;
+  margin-bottom: 5px;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  height: 40px;
+}
+
+.removeItem {
+  display: none;
+}
+
+.listedItem:hover {
+  background-color: #eee;
+}
+
+.listedItem:hover .removeItem {
+  display: block;
+}
+
+/* icon */
+i {
+  width: 100%;
+  text-align: center;
+}
