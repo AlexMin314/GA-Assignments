@@ -1,36 +1,29 @@
 $(function () {
 
-
   var onLoad = function () {
     $.ajax({
       method: 'GET',
       url: '/api'
     }).done(function (data) {
-      var leng = data.length;
-      for (var i = 0; i < leng; i++) {
-        var priceNum = data[i].price;
-        if (isNaN(priceNum) === true) priceNum = data[i].price.substr(1);
-        createItem(data[i].id, data[i].name, priceNum, data[i].quantity);
-      }
-      if (leng > 0 ) initSubTotal();
-    }).fail(function () {
-      console.log('init error');
+      data.forEach(function (e) {
+        createItem(e)
+      });
+      initSubTotal();
     });
-  }
+  };
 
-  function initSubTotal() {
+  var initSubTotal = function () {
     $.ajax({
       method: 'GET',
       url: '/api'
-    }).done(function(data) {
-      data.forEach(function(e, i) {
-        var $target = $('#' + e.id).find('.subTotal')
+    }).done(function (data) {
+      data.forEach(function (e) {
+        var $target = $('#' + e.id).find('.subTotal');
         var price = isNaN(e.price) ? e.price.substr(1) : e.price;
-        var newSubTotal = (price * e.quantity).toFixed(2);
-        $target.text('$' + newSubTotal);
+        $target.text('$' + (price * e.quantity).toFixed(2));
       });
     });
-  }
+  };
 
   var getCandies = function () {
     $.ajax({
@@ -38,31 +31,31 @@ $(function () {
       url: '/api'
     }).done(function (data) {
       console.log(data);
-    }).fail(function () {
-      console.log('error');
     });
   }
 
   var createCandies = function () {
-    var itemName = $('#addItemNameValue').val();
-    var itemPrice = $('#addItemPriceValue').val();
-    var itemQty = 0;
+    var dataObj = {};
+    dataObj.name = $('#addItemNameValue').val();
+    dataObj.price = $('#addItemPriceValue').val();
+    dataObj.quantity = 0;
+
+    if (dataObj.name === '') {
+      return alert('Please enter item name.')
+    }
+
     $.ajax({
       method: 'POST',
       url: '/api',
-      data: { name: itemName, price: itemPrice, quantity: itemQty }
+      data: dataObj
     }).done(function (data) {
-      console.log('POST')
-      createItem(data.id, itemName, itemPrice, itemQty);
-    }).fail(function () {
-      console.log('error');
+      createItem(data);
     });
     getCandies();
   }
 
-  var removeItem = function (e) {
+  var removeCandies = function (e) {
     var $target = $(e.target);
-
     $target.parents('.listedItem').delay(300).queue(function () {
 
       var candyId = $target.parents('.listedItem').attr('id');
@@ -70,40 +63,32 @@ $(function () {
       $.ajax({
         method: 'DELETE',
         url: '/api/' + candyId
-      }).done(function (data) {
-        console.log(data);
-      }).fail(function () {
-        console.log('error');
-      });
+      })
 
       $(this).remove();
+      
       getCandies();
       updatingTotalSum();
     });
   };
 
-  // Create Item //
-  var createItem = function (idIndex, itemName, itemPrice, qty) {
+  // Create Item in front-end
+  var createItem = function (data) {
 
-    //itemPrice = Number(itemPrice).toFixed(2);
-
-    // valide input name check
-    if (itemName === '') {
-      return alert('Please enter item name.')
-    }
+    var priceNum = isNaN(priceNum) ? data.price.substr(1) : data.price;
 
     // html code of item
-    var emptyList = '<div class="row listedItem" id="' + idIndex + '"">\
+    var emptyList = '<div class="row listedItem" id="' + data.id + '"">\
                       <div class="itemName col-xs-3 col-md-4">\
-                        <input type="text" class="candyName" value="' + itemName + '">\
+                        <input type="text" class="candyName" value="' + data.name + '">\
                       </div>\
                       <div class="unitPrice col-xs-2 col-md-3">\
-                        <input type="text" class="candyPrice" value="$' + itemPrice + '">\
+                        <input type="text" class="candyPrice" value="$' + priceNum + '">\
                       </div>\
                       <div class="itemQty col-xs-3 col-md-3">\
                         <div class="input-group">\
                           <span class="input-group-addon">QTY</span>\
-                          <input type="number" min="0" class="qty form-control" value="' + qty + '" />\
+                          <input type="number" min="0" class="qty form-control" value="' + data.quantity + '" />\
                         </div>\
                       </div>\
                       <div class="subTotal col-xs-2 col-md-1">$0.00</div>\
@@ -160,34 +145,31 @@ $(function () {
 
   var updateCandies = function (e) {
     $('.candyName').each(function (i, el) {
-      var newName = $(el).val();
-      var newPrice = $(el).parents('.listedItem').find('.candyPrice').val();
-      var candyId = $(el).parents('.listedItem').attr('id');
-      var newQty = $(el).parents('.listedItem').find('.qty').val();
-      var params = { id: candyId, name: newName, price: newPrice, quantity: newQty };
-      updateCandiesHelper(params);
+      var dataObj = {};
+      dataObj.name = $(el).val();
+      dataObj.price = $(el).parents('.listedItem').find('.candyPrice').val();
+      dataObj.id = $(el).parents('.listedItem').attr('id');
+      dataObj.quantity = $(el).parents('.listedItem').find('.qty').val();
+
+      updateCandiesHelper(dataObj);
     });
-    console.log('updated');
+
     initSubTotal();
     getCandies();
   };
 
-  var updateCandiesHelper = function (params) {
+  var updateCandiesHelper = function (data) {
     $.ajax({
       method: 'PUT',
       url: '/api',
-      data: params
-    }).done(function (data) {
-      console.log(data);
-    }).fail(function () {
-      console.log('error');
+      data: data
     });
   };
 
   // event listeners
   var init = function () {
     $('.qty').on('keyup', updatingSubSum);
-    $('.removeItem').on('click', removeItem);
+    $('.removeItem').on('click', removeCandies);
     $('.removeItem').hover(function () {
       $(this).css('color', 'rgb(232, 78, 78)')
     }, function () {
