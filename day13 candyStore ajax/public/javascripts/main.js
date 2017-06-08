@@ -1,7 +1,5 @@
 $(function () {
 
-  var idIndexGlobal = 0;
-  var initchk = true;
 
   var onLoad = function () {
     $.ajax({
@@ -9,16 +7,28 @@ $(function () {
       url: '/api'
     }).done(function (data) {
       var leng = data.length;
-      idIndexGlobal = leng > 0 ? leng - 1 : 0;
-
       for (var i = 0; i < leng; i++) {
-        createItem(data[i].name, data[i].price, i);
+        var priceNum = data[i].price;
+        if (isNaN(priceNum) === true) priceNum = data[i].price.substr(1);
+        createItem(data[i].id, data[i].name, priceNum, data[i].quantity);
       }
-
-      initchk = false;
-
+      if (leng > 0 ) initSubTotal();
     }).fail(function () {
-      console.log('error');
+      console.log('init error');
+    });
+  }
+
+  function initSubTotal() {
+    $.ajax({
+      method: 'GET',
+      url: '/api'
+    }).done(function(data) {
+      data.forEach(function(e, i) {
+        var $target = $('#' + e.id).find('.subTotal')
+        var price = isNaN(e.price) ? e.price.substr(1) : e.price;
+        var newSubTotal = (price * e.quantity).toFixed(2);
+        $target.text('$' + newSubTotal);
+      });
     });
   }
 
@@ -33,16 +43,21 @@ $(function () {
     });
   }
 
-  var createCandies = function (itemName, itemPrice, idIndex) {
+  var createCandies = function () {
+    var itemName = $('#addItemNameValue').val();
+    var itemPrice = $('#addItemPriceValue').val();
+    var itemQty = 0;
     $.ajax({
       method: 'POST',
       url: '/api',
-      data: { id: idIndex, name: itemName, price: itemPrice }
+      data: { name: itemName, price: itemPrice, quantity: itemQty }
     }).done(function (data) {
-      console.log('Posted')
+      console.log('POST')
+      createItem(data.id, itemName, itemPrice, itemQty);
     }).fail(function () {
       console.log('error');
     });
+    getCandies();
   }
 
   var removeItem = function (e) {
@@ -68,11 +83,9 @@ $(function () {
   };
 
   // Create Item //
-  var createItem = function (itemName, itemPrice) {
+  var createItem = function (idIndex, itemName, itemPrice, qty) {
 
-    var itemName = $('#addItemNameValue').val() || itemName;
-    var itemPrice = $('#addItemPriceValue').val() || itemPrice;
-    itemPrice = Number(itemPrice).toFixed(2);
+    //itemPrice = Number(itemPrice).toFixed(2);
 
     // valide input name check
     if (itemName === '') {
@@ -80,7 +93,7 @@ $(function () {
     }
 
     // html code of item
-    var emptyList = '<div class="row listedItem" id="' + idIndexGlobal + '"">\
+    var emptyList = '<div class="row listedItem" id="' + idIndex + '"">\
                       <div class="itemName col-xs-3 col-md-4">\
                         <input type="text" class="candyName" value="' + itemName + '">\
                       </div>\
@@ -90,7 +103,7 @@ $(function () {
                       <div class="itemQty col-xs-3 col-md-3">\
                         <div class="input-group">\
                           <span class="input-group-addon">QTY</span>\
-                          <input type="number" min="0" class="qty form-control" value="0" />\
+                          <input type="number" min="0" class="qty form-control" value="' + qty + '" />\
                         </div>\
                       </div>\
                       <div class="subTotal col-xs-2 col-md-1">$0.00</div>\
@@ -105,14 +118,8 @@ $(function () {
     // append the item
     $(emptyList).prependTo($('#itemList')).hide().slideDown(200);
 
-    if (!initchk) {
-      createCandies(itemName, itemPrice, idIndexGlobal)
-      idIndexGlobal++;
-    }
-
     // attach eventlistener to the new item
     init();
-    getCandies();
   };
 
   // update sub total of each item.
@@ -133,7 +140,6 @@ $(function () {
     $target.val(Math.floor(quantity));
 
     // display the result
-    //var unitPrice = Number($item.find('.unitPrice').text().trim().substr(1));
     var unitPrice = $item.find('.candyPrice').val();
     if (isNaN(unitPrice) === true) {
       unitPrice = $item.find('.candyPrice').val().substr(1);
@@ -157,10 +163,12 @@ $(function () {
       var newName = $(el).val();
       var newPrice = $(el).parents('.listedItem').find('.candyPrice').val();
       var candyId = $(el).parents('.listedItem').attr('id');
-      var params = { id: candyId, name: newName, price: newPrice };
+      var newQty = $(el).parents('.listedItem').find('.qty').val();
+      var params = { id: candyId, name: newName, price: newPrice, quantity: newQty };
       updateCandiesHelper(params);
     });
     console.log('updated');
+    initSubTotal();
     getCandies();
   };
 
@@ -176,11 +184,9 @@ $(function () {
     });
   };
 
-  //event listeners
+  // event listeners
   var init = function () {
     $('.qty').on('keyup', updatingSubSum);
-    //$('.candyName').on('keyup', updateCandies);
-    //$('.candyPrice').on('keyup', updateCandies);
     $('.removeItem').on('click', removeItem);
     $('.removeItem').hover(function () {
       $(this).css('color', 'rgb(232, 78, 78)')
@@ -193,9 +199,8 @@ $(function () {
   (function () {
     init();
     onLoad();
-    $('#createItemBtn').on('click', createItem);
+    $('#createItemBtn').on('click', createCandies);
     $('#calButton').on('click', updateCandies);
   }());
-
 
 });

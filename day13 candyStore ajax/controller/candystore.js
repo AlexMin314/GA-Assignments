@@ -1,5 +1,7 @@
-let store = [];
+const uuidV4 = require('uuid/v4');
 
+
+let store = [];
 
 /* return all the candy */
 
@@ -11,6 +13,7 @@ exports.list = () => {
 
 /* create candy  */
 exports.create = (candy) => {
+  candy.id = uuidV4();
   store.push(candy);
   return candy;
 };
