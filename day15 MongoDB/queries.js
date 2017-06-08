@@ -11,21 +11,21 @@ db.restaurants.distinct('cuisine', {
 
 // 3.
 db.getCollection('restaurants').find({
-  name: /^Jen(.*)Steak House$/gi
+  name: /^Willi(.*)Steak House$/gi
 }, { _id: 0, name: 1, address: 1 });
 
 /* Pizza */
 
 // 1.
 db.getCollection('restaurants').find({
-  cuisine: 'Pizza',
+  cuisine: '/Pizza/g',
   name: { $nin: [/Pizza/gi, /Pizzeria/gi] } });
 
 // 2.
 db.restaurants.distinct('grades.grade')
 db.getCollection('restaurants').find({
-  cuisine: 'Pizza',
-  borough: /Queens/gi,
+  cuisine: '/Pizza/g',
+  borough: /Queens/g,
   'grades.grade': { $nin: ['B', 'C', 'P', 'Z', 'Not Yet Graded'] }
 }, { _id: 0, name: 1 });
 
@@ -44,21 +44,21 @@ db.getCollection('restaurants').count({
 db.getCollection('restaurants').count({
   cuisine: 'Hamburgers',
   borough: 'Manhattan',
-  name: { $not: /Mcdonald'S/gi }
+  name: { $not: /Mcdonald/gi }
 });
 
 //4.
 db.getCollection('restaurants').count({
   cuisine: 'Hamburgers',
   borough: 'Manhattan',
-  name: { $nin: [/Mcdonald'S/gi, /Burger King/gi] }
+  name: { $nin: [/Mcdonald/gi, /Burger King/gi] }
 });
 
 // 5.
 db.getCollection('restaurants').distinct('address.street', {
   cuisine: 'Hamburgers',
   borough: 'Manhattan',
-  name: { $nin: [/Mcdonald'S/gi, /Burger King/gi] }
+  name: { $nin: [/Mcdonald/gi, /Burger King/gi] }
 });
 
 // 6.
@@ -66,7 +66,7 @@ db.getCollection('restaurants').find({
   cuisine: 'Hamburgers',
   borough: 'Manhattan',
   'address.street': 'Pearl Street',
-  name: { $nin: [/Mcdonald'S/gi, /Burger King/gi] }
+  name: { $nin: [/Mcdonald/gi, /Burger King/gi] }
 }, { _id: 0, name: 1 });
 
 // bonus
