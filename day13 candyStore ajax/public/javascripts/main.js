@@ -133,7 +133,11 @@ $(function () {
     $target.val(Math.floor(quantity));
 
     // display the result
-    var unitPrice = Number($item.find('.unitPrice').text().trim().substr(1))
+    //var unitPrice = Number($item.find('.unitPrice').text().trim().substr(1));
+    var unitPrice = $item.find('.candyPrice').val();
+    if (isNaN(unitPrice) === true) {
+      unitPrice = $item.find('.candyPrice').val().substr(1);
+    }
     $subTotal.text('$' + (quantity * unitPrice).toFixed(2));
 
     updatingTotalSum();
