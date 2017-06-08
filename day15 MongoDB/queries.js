@@ -5,8 +5,8 @@ db.getCollection('restaurants').find({}).sort({ cuisine: 1 });
 
 // 2.
 db.restaurants.distinct('cuisine', {
-  address.zipcode: '11414',
-  address.street: 'Cross Bay Boulevard'
+  'address.zipcode': '11414',
+  'address.street': 'Cross Bay Boulevard'
  });
 
 // 3.
@@ -26,7 +26,7 @@ db.restaurants.distinct('grades.grade')
 db.getCollection('restaurants').find({
   cuisine: 'Pizza',
   borough: /Queens/gi,
-  grades.grade: { $nin: ['B', 'C', 'P', 'Z', 'Not Yet Graded'] }
+  'grades.grade': { $nin: ['B', 'C', 'P', 'Z', 'Not Yet Graded'] }
 }, { _id: 0, name: 1 });
 
 /* hamburger */
@@ -58,7 +58,7 @@ db.getCollection('restaurants').count({
 db.getCollection('restaurants').distinct('address.street', {
   cuisine: 'Hamburgers',
   borough: 'Manhattan',
-  name: { $nin: [/Mcdonald'S/gi, /Burger King$/gi] }
+  name: { $nin: [/Mcdonald'S/gi, /Burger King/gi] }
 });
 
 // 6.
@@ -67,4 +67,10 @@ db.getCollection('restaurants').find({
   borough: 'Manhattan',
   'address.street': 'Pearl Street',
   name: { $nin: [/Mcdonald'S/gi, /Burger King/gi] }
+}, { _id: 0, name: 1 });
+
+// bonus
+db.getCollection('restaurants').find({
+  cuisine: 'Japanese',
+  grades: { $size: 9 }
 }, { _id: 0, name: 1 });
