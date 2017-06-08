@@ -1,7 +1,7 @@
 /* warm up */
 
 // 1.
-db.getCollection('restaurants').find({}).sort({ cuisine: 1 });
+db.restaurants.distinct('cuisine').sort()
 
 // 2.
 db.restaurants.distinct('cuisine', {
