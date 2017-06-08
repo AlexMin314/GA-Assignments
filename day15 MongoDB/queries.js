@@ -51,7 +51,7 @@ db.getCollection('restaurants').count({
 db.getCollection('restaurants').count({
   cuisine: 'Hamburgers',
   borough: 'Manhattan',
-  name: { $nin: [/Mcdonald'S/gi, /Burger King$/gi] }
+  name: { $nin: [/Mcdonald'S/gi, /Burger King/gi] }
 });
 
 // 5.
@@ -66,5 +66,5 @@ db.getCollection('restaurants').find({
   cuisine: 'Hamburgers',
   borough: 'Manhattan',
   'address.street': 'Pearl Street',
-  name: { $nin: [/Mcdonald'S/gi, /Burger King$/gi] }
+  name: { $nin: [/Mcdonald'S/gi, /Burger King/gi] }
 }, { _id: 0, name: 1 });
