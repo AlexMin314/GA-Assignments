@@ -19,7 +19,7 @@ db.getCollection('restaurants').find({
 // 1.
 db.getCollection('restaurants').find({
   cuisine: /Pizza/g,
-  name: { $nin: [/Pizza/gi, /Pizzeria/gi] } });
+  name: { $nin: [/Pizza/g, /Pizzeria/g] } });
 
 // 2.
 db.restaurants.distinct('grades.grade')
