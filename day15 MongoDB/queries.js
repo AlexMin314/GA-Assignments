@@ -18,14 +18,14 @@ db.getCollection('restaurants').find({
 
 // 1.
 db.getCollection('restaurants').find({
-  cuisine: '/Pizza/g',
+  cuisine: /Pizza/g,
   name: { $nin: [/Pizza/gi, /Pizzeria/gi] } });
 
 // 2.
 db.restaurants.distinct('grades.grade')
 db.getCollection('restaurants').find({
-  cuisine: '/Pizza/g',
-  borough: /Queens/g,
+  cuisine: /Pizza/g,
+  borough: 'Queens',
   'grades.grade': { $nin: ['B', 'C', 'P', 'Z', 'Not Yet Graded'] }
 }, { _id: 0, name: 1 });
 
