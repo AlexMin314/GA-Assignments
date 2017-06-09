@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Flight from './flight'
+import Flight from './flight';
 
 const terminalSchema = new mongoose.Schema({
   name: String,

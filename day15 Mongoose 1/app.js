@@ -29,7 +29,7 @@ db.once('open', () => {
   db.db.dropDatabase((err, result) => {
     if (err) console.log(err);
     console.log('database dropped', result)
-  })
+  });
   // create data
   let flight1 = new Flight({
     from: 'CDG France',
@@ -71,7 +71,7 @@ db.once('open', () => {
   terminal1.save((err) => {
     if (err) return console.log(err.message);
   });
-})
+}); // db.open ends.
 
 // Read Data.
 Flight.find({}, (err, flights) => {
