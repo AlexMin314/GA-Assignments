@@ -61,6 +61,16 @@ db.getCollection('restaurants').distinct('address.street', {
   name: { $nin: [/Mcdonald/gi, /Burger King/gi] }
 });
 
+// 5 - from Jens
+db.restaurant.distinct('address.street', {
+  cuisine: 'Hamburgers',
+  borough: 'Manhattan',
+  $and : [
+    { name: { $nin: [/Mcdonald/] } },
+    { name: { $ne: 'Burger King' } }
+  ]
+})
+
 // 6.
 db.getCollection('restaurants').find({
   cuisine: 'Hamburgers',
@@ -68,6 +78,7 @@ db.getCollection('restaurants').find({
   'address.street': 'Pearl Street',
   name: { $nin: [/Mcdonald/gi, /Burger King/gi] }
 }, { _id: 0, name: 1 });
+
 
 // bonus
 db.getCollection('restaurants').find({
