@@ -43,10 +43,15 @@ db.once('open', () => {
     airline: 'British Airways',
   });
 
+  const startDate = new Date(1990,0,1).getTime();
+  const endDate =  new Date(1991,0,1).getTime();
+  let randomTime = Math.round(Math.random() * (endDate - startDate));
+  randomTime += startDate;
+
   let airport1 = new Airport({
     name: 'JFK',
     country: 'USA',
-    opended: Date('1990-12-08')
+    opended: new Date(randomTime)
   });
 
   let terminal1 = new Terminal({
