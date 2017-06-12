@@ -9,6 +9,7 @@ import lessMiddleware from 'less-middleware';
 import index from './routes/index';
 // mongoose
 import mongoose from 'mongoose';
+mongoose.Promise = global.Promise;
 // models
 import Airport from './models/airport';
 import Flight from './models/flight';
@@ -31,6 +32,10 @@ db.once('open', () => {
     console.log('database dropped', result)
   });
   // create data
+  const startDate = new Date(1990, 0, 1).getTime();
+  const endDate = new Date(1991, 0, 1).getTime();
+  let randomTime = Math.round(Math.random() * (endDate - startDate)) + startDate;
+
   let flight1 = new Flight({
     from: 'CDG France',
     to: 'JFK New-York, USA',
@@ -42,11 +47,6 @@ db.once('open', () => {
     to: 'JFK New-York, USA',
     airline: 'British Airways',
   });
-
-  const startDate = new Date(1990,0,1).getTime();
-  const endDate =  new Date(1991,0,1).getTime();
-  let randomTime = Math.round(Math.random() * (endDate - startDate));
-  randomTime += startDate;
 
   let airport1 = new Airport({
     name: 'JFK',
@@ -64,18 +64,10 @@ db.once('open', () => {
   terminal1.flight.push(flight2);
 
   // Save date
-  flight1.save((err) => {
-    if (err) return console.log(err.message);
-  });
-  flight2.save((err) => {
-    if (err) return console.log(err.message);
-  });
-  airport1.save((err) => {
-    if (err) return console.log(err.message);
-  });
-  terminal1.save((err) => {
-    if (err) return console.log(err.message);
-  });
+  flight1.save();
+  flight2.save();
+  airport1.save();
+  terminal1.save();
 }); // db.open ends.
 
 // Read Data.
