@@ -1,0 +1,58 @@
+.wrapper {
+  position: relative;
+  background-color: rgb(50, 50, 50);
+  padding-top: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 0 gray;
+  padding-right: 3px;
+  margin-bottom: 3px;
+}
+
+.wrapper:hover {
+  background-color: rgb(62, 62, 62);
+  box-shadow: 3px 3px 3px 0 gray;
+}
+
+#chkBtn {
+  position: absolute;
+  left: 0px;
+  width: 70px;
+  text-align: center;
+  padding-top: 6px;
+  font-size: 45px;
+  color: rgb(230, 230, 230);
+  text-shadow: -2px -2px 2px rgb(138, 138, 138);
+}
+
+#chkBtn:hover {
+  color: rgb(99, 198, 96);
+}
+
+.value {
+  font-size: 20px;
+  font-weight: lighter;
+  margin-left: 90px;
+  text-align: left;
+  color: rgb(255, 246, 19);
+  margin-right: 10px;
+  word-break: break-all;
+}
+
+.date {
+  color: rgb(163, 163, 162);
+  text-align: right;
+  padding-right: 20px;
+  border-top: 1px solid rgb(79, 79, 79);
+  margin-left: 90px;
+  font-weight: lighter;
+  font-size: 16px;
+}
+
+.todoAni-appear {
+   opacity: 0.01;
+}
+
+.todoAni-appear.todoAni-appear-active {
+   opacity: 1;
+   transition: opacity 300ms ease-in;
+}

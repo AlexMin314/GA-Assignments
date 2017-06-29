@@ -1,0 +1,18 @@
+.searchBar {
+  height: 40px;
+  width: 100%;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: rgb(228, 227, 227);
+  box-shadow: 2px 2px 2px 0 rgb(115, 114, 114) inset;
+}
+
+.form-group {
+  margin: 5px 0;
+}
+
+.glyphicon {
+  font-size: 20px;
+  color: rgb(162, 161, 161);
+  margin-top: 3px;
+}

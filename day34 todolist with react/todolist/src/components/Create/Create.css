@@ -1,0 +1,23 @@
+
+
+#todoValue, #todoPostBtn {
+  height: 40px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+#todoValue {
+  background-color: rgb(195, 255, 232);
+  box-shadow: 2px 2px 2px 0 rgb(115, 114, 114) inset;
+}
+
+ #todoPostBtn {
+   width: 80px;
+   background-color: rgb(50, 50, 50);
+   color: rgb(195, 255, 232);
+   box-shadow: 2px 2px 2px 0 rgb(115, 114, 114);
+ }
+
+#todoValue:focus {
+  box-shadow: 2px 2px 2px 0 rgb(195, 255, 232) inset;
+}
