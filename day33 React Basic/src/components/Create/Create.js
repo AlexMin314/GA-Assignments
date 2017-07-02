@@ -1,74 +1,52 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
+import uuid from 'uuid';
 
-/**
- * Create
- */
-export class Create extends Component { // eslint-disable-line react/prefer-stateless-function
+import './Create.css'
 
+export default class Create extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "",
-      price: 0,
-      id: 0,
-      nameEle: "",
-      priceEle: ""
-    };
+      value: "",
+      date: Date().slice(0,-15),
+      id: uuid.v4()
+    }
   }
 
   onChange = (e) => {
-    let state = this.state;
-
-    if (e.target.name == "name") {
-      state.title = e.target.value;
-      state.nameEle = e.target;
-    }
-
-    if (e.target.name == "price") {
-      state.price = e.target.value;
-      state.priceEle = e.target;
-    }
-
-    this.setState(state);
+    const states = this.state;
+    states.value = e.target.value;
+    this.setState(states);
   }
 
   onClick = (e) => {
+    const states = this.state;
 
-    if (this.state.priceEle !== '' && this.state.nameEle !== '') {
-      this.state.priceEle.value = '';
-      this.state.nameEle.value = '';
+    this.props.createTodos(states);
 
-      this.props.createProduct(this.state);
-
-      this.setState({title: "", price: 0, id: 0, nameEle: "", priceEle: ""});
-    }
+    states.value = '';
+    states.date = Date().slice(0,-15);
+    states.id = uuid.v4();
+    this.setState(states);
   }
 
   render() {
     return (
-      <section className="row create">
-        <div className="col-md-2 name">
-          <div className="form-group">
-            <input type="text" name="name" placeholder="Name" className="form-control" onChange={this.onChange}/>
-          </div>
-        </div>
-        <div className="col-md-2 price">
-          <div className="form-group">
-            <input type="number" name="price" min={0} placeholder="Price" className="form-control" onChange={this.onChange}/>
-          </div>
-        </div>
-        <div className="col-md-2 createProduct">
-          <button type="button" className="btn btn-success" onClick={this.onClick}>Create</button>
-        </div>
-        <div className="col-md-2 col-md-offset-4 calc">
-          <button type="button" className="btn btn-info">
-            Calculate
-          </button>
-        </div>
-      </section>
+      <div className="input-group todoInput">
+        <input id="todoValue"
+               placeholder="Add todo..."
+               className="form-control"
+               value={this.state.value}
+               onChange={this.onChange}/>
+        <span className="input-group-btn">
+          <button id="todoPostBtn"
+                  type="button"
+                  className="btn btn-default"
+                  onClick={this.onClick}>Post</button>
+        </span>
+      </div>
     );
   }
 }
-
-export default Create;
+Create.propTypes = {};

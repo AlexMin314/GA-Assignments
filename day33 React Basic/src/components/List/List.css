@@ -1,0 +1,16 @@
+#todoList {
+  width: 100%;
+  height: auto;
+  margin-top: 35px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/*.todoAni-leave {
+   opacity: 1;
+}
+
+.todoAni-leave.todoAni-leave-active {
+   opacity: 0.01;
+   transition: opacity 200ms ease-in;
+}*/
