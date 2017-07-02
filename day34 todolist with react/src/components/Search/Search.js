@@ -8,8 +8,8 @@ export default class Search extends React.Component {
 
   }
 
-  onKeyPress = (e) => {
-    console.log('serch works!');
+  onKeyUp = (e) => {
+    this.props.drawTodos(e.target.value)
   }
 
 
@@ -20,7 +20,7 @@ export default class Search extends React.Component {
                className="searchBar form-control"
                placeholder="Search"
                autoFocus
-               onKeyPress={this.onKeyPress}/>
+               onKeyUp={this.onKeyUp}/>
         <i className="glyphicon glyphicon-search form-control-feedback" />
       </div>
     );

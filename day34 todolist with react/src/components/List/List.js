@@ -13,7 +13,9 @@ export default class List extends React.Component {
 
     this.state = {
       todoList: [],
-      deleteInfo: []
+      deleteInfo: [],
+      searchList: [],
+      renderList: []
     }
   }
 
@@ -40,47 +42,56 @@ export default class List extends React.Component {
       return e.id !== todoId;
     });
 
+    states.searchList = states.searchList.filter((e) => {
+      return e.props.id != todoId;
+    });
+
     this.setState(states);
   }
 
-  drawTodos = () => {
-    const todoListArr = [];
+  searchTodos = (search) => {
+    const states = this.state;
+    states.searchList = [];
+    if (search) {
+      const searchStr = new RegExp(search);
 
-    this.state.todoList.forEach((e) => {
-      todoListArr.push(<Todos id={e.id}
-                              value={e.value}
-                              date={e.date}
-                              deleteTodos={this.deleteTodos}
-                              key={e.id}/>);
-    });
-    return todoListArr.reverse();
+      this.state.renderList.forEach((e, i) => {
+
+        if (searchStr.test(e.props.value)) {
+          states.searchList.push(e);
+        }
+      });
+    }
+    this.setState(states);
   }
 
-  // fadeOut = () => {
-  //   console.log('here!');
-  //   const fadeOutArr = [];
-  //
-    // this.state.deleteInfo.forEach((e) => {
-    //   fadeOutArr.push(<Todos id={e.id}
-    //                           value={e.value}
-    //                           date={e.date}
-    //                           deleteTodos={this.deleteTodos}
-    //                           key={e.id}/>);
-    // });
-  //
-  //   return fadeOutArr;
-  // }
+
+  drawTodos = () => {
+    if (this.state.searchList.length === 0) {
+      this.state.renderList = [];
+
+        this.state.todoList.forEach((e) => {
+          this.state.renderList.push(<Todos id={e.id}
+                                  value={e.value}
+                                  date={e.date}
+                                  deleteTodos={this.deleteTodos}
+                                  key={e.id}/>);
+        });
+    }
+
+    return this.state.searchList.length > 0
+              ? this.state.searchList
+              : this.state.renderList.reverse();
+  }
 
   render() {
 
-    //const fadeOutTodo = this.fadeOut();
     const todos = this.drawTodos();
-    console.log(this.state.deleteInfo);
 
     return (
       <div>
         <Create createTodos={this.createTodos}/>
-        <Search/>
+        <Search drawTodos={this.searchTodos}/>
         <div id="todoList">
           {todos}
         </div>

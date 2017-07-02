@@ -6,11 +6,11 @@
   margin-right: 0;
 }
 
-.todoAni-leave {
+/*.todoAni-leave {
    opacity: 1;
 }
 
 .todoAni-leave.todoAni-leave-active {
    opacity: 0.01;
    transition: opacity 200ms ease-in;
-}
+}*/
